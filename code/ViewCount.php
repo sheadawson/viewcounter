@@ -7,6 +7,13 @@ class ViewCount extends DataObject {
 		'RecordClass' => 'Varchar(255'
 	);
 
+	static $indexes = array(
+		'RecordIDRecordClass' => array(
+			'type' => 'index',
+			'value' => 'RecordID,RecordClass'
+		)
+	);
+
 	/**
 	 * @return DataObject
 	 */
