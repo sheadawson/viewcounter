@@ -18,8 +18,9 @@ class ViewCountableExtensionTest extends FunctionalTest {
 		$page2 = $this->objFromFixture('Page', 'page2');
 
 		$response = $this->get($page1->RelativeLink());
-		var_dump($response);
+		$this->assertFalse($response->isError());
 		$response = $this->get($page1->RelativeLink());
+		$this->assertFalse($response->isError());
 		$page1 = Page::get()->byID($page1->ID);
 		$page2 = Page::get()->byID($page2->ID);
 		$this->assertEquals(1, $page1->ViewCount()->Count, 'Doesnt double track');
@@ -32,6 +33,25 @@ class ViewCountableExtensionTest extends FunctionalTest {
 		// $this->session()->inst_clearAll();
 		// $page2 = Page::get()->byID($page2->ID);
 		// $this->assertEquals(2, $page2->ViewCount()->Count, 'Tracks for individual sessions');
+	}
+
+	public function testExcludesBots() {
+		$page1 = $this->objFromFixture('Page', 'page1');
+		$response = $this->get($page1->RelativeLink());
+		$this->assertFalse($response->isError());
+		$page1 = Page::get()->byID($page1->ID);
+		$this->assertEquals(1, $page1->ViewCount()->Count);
+
+		$origUA = @$_SERVER["HTTP_USER_AGENT"];
+		$_SERVER["HTTP_USER_AGENT"] = 'Googlebot 1.2.3';
+
+		$page1 = $this->objFromFixture('Page', 'page1');
+		$response = $this->get($page1->RelativeLink());
+		$this->assertFalse($response->isError());
+		$page1 = Page::get()->byID($page1->ID);
+		$this->assertEquals(1, $page1->ViewCount()->Count, "Bots don't increase count");
+
+		$_SERVER["HTTP_USER_AGENT"] = $origUA;
 	}
 
 }

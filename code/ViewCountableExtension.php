@@ -25,9 +25,12 @@ class ViewCountableExtension extends DataExtension {
 	 * @return ViewCount
 	 */
 	public function trackViewCount() {
+		// Don't track crawlers and bots
+		$bots = Config::inst()->get('ViewCountableExtension', 'bots');
+		if(stripos($bots, $_SERVER["HTTP_USER_AGENT"]) !== false) return;
+
 		// Only track once per session
 		$tracked = Session::get('ViewCountsTracked');
-		var_dump($tracked);
 		if($tracked && array_key_exists($this->owner->ID, $tracked)) return;
 		$tracked[$this->owner->ID] = true;
 		Session::set('ViewCountsTracked', $tracked);

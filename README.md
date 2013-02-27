@@ -2,9 +2,16 @@
 
 [![Build Status](https://secure.travis-ci.org/chillu/viewcounter.png)](http://travis-ci.org/chillu/viewcounter)
 
-Tracks page views in a simple counter record, with a limit of one view per session.
-Very simplistic approach, since it doesn't use other criteria such
+Tracks page views in a simple counter record, and the behaviour is applied
+to any `DataObject` subclass through an extension.
+This approach of a separate counter record is particularly handy
+if you apply it to `Versioned` objects like `SiteTree`, since
+you can store the view data independently of staging and live concerns.
+
+Views are limited by session. This is a slightly simplistic approach, 
+since it doesn't use other criteria such
 as the current IP address or browser cookies to prevent abuse.
+Common web crawlers and search engine bots are excluded from view counts.
 
 ## Usage
 

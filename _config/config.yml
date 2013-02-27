@@ -1,0 +1,18 @@
+ViewCountableExtension:
+  bots:
+    - Googlebot
+    - Baiduspider
+    - ia_archiver
+    - R6_FeedFetcher
+    - NetcraftSurveyAgent
+    - Sogou web spider
+    - bingbot
+    - Yahoo! Slurp
+    - facebookexternalhit
+    - PrintfulBot
+    - msnbot
+    - Twitterbot
+    - UnwindFetchor
+    - urlresolver
+    - Butterfly
+    - TweetmemeBot
