@@ -6,7 +6,7 @@
  */
 class ViewCountableExtension extends DataExtension {
 
-	public function updateCMSFields(FieldSet &$fields) {
+	public function updateCMSFields(FieldList $fields) {
 		$fields->addFieldToTab(
 			'Root.Main',
 			ReadonlyField::create('ViewCount', 'View Counts', $this->ViewCount()->Count)
