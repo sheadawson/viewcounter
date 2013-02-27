@@ -1,0 +1,19 @@
+{
+	"name": "chillu/viewcounter",
+	"type": "silverstripe-module",
+	"description": "Tracks SilverStripe page views/visitors/hits in a simple counter record",
+	"homepage": "http://silverstripe.org",
+	"license": "BSD-3-Clause",
+	"keywords": ["silverstripe", "tracking", "analytics"],
+	"authors": [
+		{
+			"name": "Ingo Schommer",
+			"homepage": "http://silverstripe.com"
+		}
+	],
+	"require": {
+		"php": ">=5.3.2",
+		"composer/installers": "*",
+		"silverstripe/framework": "3.0.*"
+	}
+}
