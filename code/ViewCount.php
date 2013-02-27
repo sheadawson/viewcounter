@@ -4,7 +4,7 @@ class ViewCount extends DataObject {
 	static $db = array(
 		'Count' => 'Int',
 		'RecordID' => 'Int',
-		'RecordClass' => 'Varchar(255'
+		'RecordClass' => 'Varchar(255)'
 	);
 
 	static $indexes = array(
