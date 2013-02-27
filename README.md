@@ -1,6 +1,6 @@
 # Simple View Counts for SilverStripe records
 
-[![Build Status](https://secure.travis-ci.org/chillu/viewcounter.png)](http://travis-ci.org/chillu/viewcounter)
+[![Build Status](https://travis-ci.org/chillu/viewcounter.png?branch=master)](https://travis-ci.org/chillu/viewcounter)
 
 Tracks page views in a simple counter record, and the behaviour is applied
 to any `DataObject` subclass through an extension.
