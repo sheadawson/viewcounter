@@ -1,5 +1,7 @@
 # Simple View Counts for SilverStripe records
 
+[![Build Status](https://secure.travis-ci.org/chillu/viewcounter.png)](http://travis-ci.org/chillu/viewcounter)
+
 Tracks page views in a simple counter record, with a limit of one view per session.
 Very simplistic approach, since it doesn't use other criteria such
 as the current IP address or browser cookies to prevent abuse.
