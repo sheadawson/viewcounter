@@ -31,25 +31,22 @@ class ViewCountableExtension extends DataExtension {
 			if(stripos($bot, $_SERVER["HTTP_USER_AGENT"]) !== false) return;	
 		}
 
+		// Don't track draft views
+		if($this->owner->hasExtension('Versioned') && Versioned::current_stage() != "Live") return;
+
 		// Only track once per session
 		$tracked = Session::get('ViewCountsTracked');
 		if($tracked && array_key_exists($this->owner->ID, $tracked)) return;
 		$tracked[$this->owner->ID] = true;
 		Session::set('ViewCountsTracked', $tracked);
 
-		// Track in DB. Not the most lightweight approach...
-		$count = $this->ViewCount();
-		if(!$count) {
-			$count = new ViewCount(array(
-				'RecordID' => $this->owner->ID,
-				'RecordClass' => ClassInfo::baseDataClass($this->owner->ClassName),
-			));
-			$count->write();
-		}
-		$count->Count = $count->Count + 1;
-		$count->write();
-
-		return $count;
+		// Track in DB
+		DB::query(sprintf(
+			'INSERT INTO "ViewCount" ("Count", "RecordID", "RecordClass") '
+			. 'VALUES (1, %d, \'%s\') ON DUPLICATE KEY UPDATE "Count"="Count"+1',
+			$this->owner->ID,
+			ClassInfo::baseDataClass($this->owner->ClassName)
+		));
 	}
 
 	public function ViewCount() {

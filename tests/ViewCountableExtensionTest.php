@@ -5,13 +5,22 @@ class ViewCountableExtensionTest extends FunctionalTest {
 
 	static $fixture_file = 'ViewCountableExtensionTest.yml';
 
-	static $use_draft_site = true;
-
 	protected $requiredExtensions = array(
 		'Page' => array(
 			'ViewCountableExtension'
 		),
 	);
+
+	public function setUp() {
+		parent::setUp();
+
+		$page1 = $this->objFromFixture('Page', 'page1');
+		$page1->publish('Stage', 'Live');
+		$page2 = $this->objFromFixture('Page', 'page2');
+		$page2->publish('Stage', 'Live');
+
+		Versioned::reading_stage('Live');
+	}
 
 	public function testViewCountTracksOncePerSession() {
 		$page1 = $this->objFromFixture('Page', 'page1');
@@ -52,6 +61,10 @@ class ViewCountableExtensionTest extends FunctionalTest {
 		$this->assertEquals(1, $page1->ViewCount()->Count, "Bots don't increase count");
 
 		$_SERVER["HTTP_USER_AGENT"] = $origUA;
+	}
+
+	public function testOnlyTracksLiveStage() {
+		$this->markTestIncomplete();
 	}
 
 }

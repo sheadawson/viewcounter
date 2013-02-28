@@ -11,6 +11,10 @@ class ViewCount extends DataObject {
 		'RecordIDRecordClass' => array(
 			'type' => 'index',
 			'value' => 'RecordID,RecordClass'
+		),
+		'RecordIDRecordClassUnique' => array(
+			'type' => 'unique',
+			'value' => 'RecordID,RecordClass'
 		)
 	);
 
