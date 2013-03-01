@@ -49,11 +49,20 @@ class ViewCountableExtension extends DataExtension {
 		));
 	}
 
+	/**
+	 * Return an existing or new ViewCount record.
+	 *
+	 * @return ViewCount
+	 */
 	public function ViewCount() {
-		return ViewCount::get()->filter(array(
+		$data = array(
 			'RecordID' => $this->owner->ID,
 			'RecordClass' => ClassInfo::baseDataClass($this->owner->ClassName)
-		))->First();
+		);
+		$count = ViewCount::get()->filter($data)->First();
+		if(!$count) $count = new ViewCount($data);
+		
+		return $count;
 	}
 
 }

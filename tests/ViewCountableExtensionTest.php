@@ -33,7 +33,7 @@ class ViewCountableExtensionTest extends FunctionalTest {
 		$page1 = Page::get()->byID($page1->ID);
 		$page2 = Page::get()->byID($page2->ID);
 		$this->assertEquals(1, $page1->ViewCount()->Count, 'Doesnt double track');
-		$this->assertNull($page2->ViewCount(), 'Doesnt track other pages');
+		$this->assertEquals(0, $page2->ViewCount()->Count, 'Doesnt track other pages');
 
 		// TODO Fix 404s
 		// $response = $this->get($page2->RelativeLink());
