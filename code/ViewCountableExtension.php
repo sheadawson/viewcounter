@@ -60,7 +60,10 @@ class ViewCountableExtension extends DataExtension {
 			'RecordClass' => ClassInfo::baseDataClass($this->owner->ClassName)
 		);
 		$count = ViewCount::get()->filter($data)->First();
-		if(!$count) $count = new ViewCount($data);
+		if(!$count) {
+			$count = new ViewCount();
+			$count->update($data);
+		}
 		
 		return $count;
 	}
