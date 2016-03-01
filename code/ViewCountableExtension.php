@@ -11,10 +11,10 @@ class ViewCountableExtension extends DataExtension
     {
         $fields->addFieldToTab(
             'Root.Main',
-            ReadonlyField::create('ViewCount', 'View Counts', $this->ViewCount()->Count)
+            ReadonlyField::create('ViewCounter', 'View Counts', $this->ViewCount()->Count)
         );
     }
-    
+
     /**
      * @todo Should really be split into a separate controller extension,
      * but SS doesn't have extension points for init() there...
@@ -49,7 +49,6 @@ class ViewCountableExtension extends DataExtension
         }
         $tracked[$this->owner->ID] = true;
         Session::set('ViewCountsTracked', $tracked);
-
         // Track in DB
         DB::query(sprintf(
             'INSERT INTO "ViewCount" ("Count", "RecordID", "RecordClass") '
@@ -75,7 +74,7 @@ class ViewCountableExtension extends DataExtension
             $count = new ViewCount();
             $count->update($data);
         }
-        
+
         return $count;
     }
 }
